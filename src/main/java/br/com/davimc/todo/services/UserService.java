@@ -34,8 +34,9 @@ public class UserService {
     }
 
     private User updateData(User newObj, User obj) {
-        newObj.setName(obj.getName());
-        newObj.setPoints(obj.getPoints());
+        newObj.setName(obj.getName()==null? newObj.getName() : obj.getName());
+        newObj.setEmail(obj.getEmail() == null? newObj.getEmail() : obj.getEmail());
+        newObj.setPoints(obj.getPoints() == null? newObj.getPoints() : obj.getPoints());
         return newObj;
     }
 
