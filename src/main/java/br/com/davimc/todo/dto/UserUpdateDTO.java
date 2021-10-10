@@ -7,21 +7,29 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 
-public class UserNewDTO implements Serializable {
+public class UserUpdateDTO implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    private Long id;
 
     @NotEmpty(message="Preenchimento obrigatório")
     @Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
     private String name;
-
     @NotEmpty(message="Preenchimento obrigatório")
     @Email(message="Email inválido")
     private String email;
-
     @PositiveOrZero(message="A pontuação não poderá ser negativa")
     private Long points;
 
-    public UserNewDTO() {
+    public UserUpdateDTO() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -2,6 +2,7 @@ package br.com.davimc.todo.resources;
 
 import br.com.davimc.todo.domains.User;
 import br.com.davimc.todo.dto.UserNewDTO;
+import br.com.davimc.todo.dto.UserUpdateDTO;
 import br.com.davimc.todo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,16 @@ public class UserResource {
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
     }
-
-
+    @PutMapping("/{id}")
+    public ResponseEntity<User> update(@Valid @RequestBody UserUpdateDTO objDTO, @PathVariable Long id) {
+        User obj = service.fromDTO(objDTO);
+        obj.setId(id);
+        service.update(obj);
+        return ResponseEntity.noContent().build();
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<User> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

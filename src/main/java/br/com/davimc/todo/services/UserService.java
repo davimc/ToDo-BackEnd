@@ -2,9 +2,11 @@ package br.com.davimc.todo.services;
 
 import br.com.davimc.todo.domains.User;
 import br.com.davimc.todo.dto.UserNewDTO;
+import br.com.davimc.todo.dto.UserUpdateDTO;
 import br.com.davimc.todo.repositories.UserRepository;
 import br.com.davimc.todo.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +27,7 @@ public class UserService {
     }
 
     public User update(User obj) {
-        User newObj = repository.findById(obj.getId()).get();
+        User newObj = this.find(obj.getId());
         newObj = updateData(newObj, obj);
         return repository.save(newObj);
     }
@@ -38,5 +40,17 @@ public class UserService {
 
     public User fromDTO(UserNewDTO objDTO) {
         return new User(null,objDTO.getName(),objDTO.getEmail(),objDTO.getPoints());
+    }
+    public User fromDTO(UserUpdateDTO objDTO) {
+        return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail(), objDTO.getPoints());
+    }
+
+    public void delete(Long id) {
+        User obj = this.find(id);
+        try {
+            repository.delete(obj);
+        }catch(DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("Não é possível excluir o Usuário porque há Listas relacionadas");
+        }
     }
 }
