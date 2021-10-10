@@ -4,6 +4,7 @@ import br.com.davimc.todo.domains.User;
 import br.com.davimc.todo.dto.UserNewDTO;
 import br.com.davimc.todo.dto.UserUpdateDTO;
 import br.com.davimc.todo.repositories.UserRepository;
+import br.com.davimc.todo.services.exceptions.DataIntegrityException;
 import br.com.davimc.todo.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -50,7 +51,7 @@ public class UserService {
         try {
             repository.delete(obj);
         }catch(DataIntegrityViolationException e) {
-            throw new DataIntegrityViolationException("Não é possível excluir o Usuário porque há Listas relacionadas");
+            throw new DataIntegrityException("Não é possível excluir o Usuário porque há Listas relacionadas");
         }
     }
 }
