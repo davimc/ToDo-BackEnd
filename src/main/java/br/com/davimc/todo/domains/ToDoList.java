@@ -13,7 +13,7 @@ public class ToDoList implements Serializable {
     private static final long versionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
     private Long points;
     @JsonIgnore
@@ -29,17 +29,17 @@ public class ToDoList implements Serializable {
     public ToDoList() {
     }
 
-    public ToDoList(long id, String name, Long points) {
+    public ToDoList(Long id, String name, Long points) {
         this.id = id;
         this.name = name;
         this.points = points;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
