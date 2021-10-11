@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class Task implements Serializable, ITask {
     private static final long serialVersionUID = 1L;
