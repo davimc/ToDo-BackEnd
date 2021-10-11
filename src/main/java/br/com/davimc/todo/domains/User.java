@@ -1,5 +1,7 @@
 package br.com.davimc.todo.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class User implements Serializable {
     @Column(unique = true)
     private String email;
     private Long points;
+    @JsonIgnore
     @ManyToMany(mappedBy = "users")
     private List<ToDoList> lists = new ArrayList<>();
 

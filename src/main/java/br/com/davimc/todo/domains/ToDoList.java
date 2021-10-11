@@ -16,12 +16,13 @@ public class ToDoList implements Serializable {
     private Long id;
     private String name;
     private Long points;
-    @JsonIgnore
+
     @ManyToMany
     @JoinTable(name="TODOLIST_USER",
             joinColumns = @JoinColumn(name="todolist_id"),
             inverseJoinColumns = @JoinColumn(name="user_id"))
     private List<User> users = new ArrayList<>();
+
     @JsonIgnore
     @OneToMany(mappedBy = "todoList")
     private List<Task> tasks = new ArrayList();
